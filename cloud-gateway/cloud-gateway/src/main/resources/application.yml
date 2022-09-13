@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+      - id: ACCOUNT-MANAGER
+        uri:
+          lb://ACCOUNT-MANAGER
+        predicates:
+        - Path=/apiuser/**
+      - id: GIPHER-MANAGER
+        uri:
+          lb://GIPHER-MANAGER
+        predicates:
+        - Path=/api/**
+        
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultzone : http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
